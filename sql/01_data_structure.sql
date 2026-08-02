@@ -72,7 +72,9 @@ INSERT INTO orders (order_id, user_id, product_id, order_timestamp, quantity, de
 (1006, 101, 503, '2023-10-01 15:45:00', 1, '2023-10-05', 'Delivered'), -- Same day purchase!
 (1007, 101, 502, '2023-10-03 08:00:00', 2, '2023-10-06', 'Delivered'),
 (1008, 105, 501, '2023-11-15 18:30:00', 1, NULL, 'Pending'),
-(1009, 102, 504, '2024-01-10 12:00:00', 1, '2024-01-15', 'Delivered');
+(1009, 102, 504, '2024-01-10 12:00:00', 1, '2024-01-15', 'Delivered'),
+(1010, 103, 506, '2023-02-11 10:00:00', 2, '2023-02-14', 'Delivered'), -- 3-day consecutive streak w/ 1003 & 1011 (Q3) + Appliance revenue tie (Q1)
+(1011, 103, 506, '2023-02-12 10:00:00', 3, '2023-02-15', 'Delivered'); -- completes the 3-day streak (Feb 10-11-12)
 
 
 -- ==========================================

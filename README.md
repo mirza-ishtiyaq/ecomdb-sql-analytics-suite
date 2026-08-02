@@ -91,9 +91,13 @@ The business never sees the tie. They make a stocking decision on incomplete inf
 `DENSE_RANK()` surfaces both at rank 1. The full picture is visible.
 
 ```
-ROW_NUMBER on a tie:   Product A → 1  ·  Product B → 2   ← B hidden from report
-DENSE_RANK on a tie:   Product A → 1  ·  Product B → 1   ← both visible
+ROW_NUMBER on a tie:   Washing Machine → 1  ·  Microwave → 2   ← Microwave hidden from report
+DENSE_RANK on a tie:   Washing Machine → 1  ·  Microwave → 1   ← both visible
 ```
+
+This is not a hypothetical — it's the real 2023 Appliance-category result on this
+repo's own seed data: both products close the year at $900 revenue, and `DENSE_RANK`
+genuinely surfaces both at rank 1.
 
 **Why `LEFT JOIN` and not `INNER JOIN`:**
 If a product was deleted from the products table after orders were placed,
@@ -143,6 +147,9 @@ Oct 3 minus 3 days =  Sep 30  ← same anchor
 Three identical anchors. One `GROUP BY`. Count reaches 3. Streak detected.
 A gap in the sequence produces a different anchor and breaks the group automatically.
 No self-join. No recursive CTE. Just subtraction.
+
+Verified against the seed data: user 103 places delivered orders on three consecutive
+calendar days (Feb 10–11–12, 2023) and the query surfaces exactly that streak.
 
 ---
 
@@ -238,20 +245,21 @@ At least the error tells you something is broken.
 
 ```
 /
-├── README.md                              ← you are here — start here
-├── DATA_Structure.sql                     ← schema creation + seed data (run this first)
-└── EcomDB_Analytics_Production.sql       ← all five production queries
+├── README.md                                    ← you are here — start here
+└── sql/
+    ├── 01_data_structure.sql                    ← schema creation + seed data (run this first)
+    └── 02_ecomdb_analytics_production.sql       ← all five production queries
 ```
 
-**Run order:** `DATA_Structure.sql` first to create and seed the tables,
-then `EcomDB_Analytics_Production.sql` for the analytical queries.
+**Run order:** `sql/01_data_structure.sql` first to create and seed the tables,
+then `sql/02_ecomdb_analytics_production.sql` for the analytical queries.
 
 ---
 
 ## Connect
 
 - **LinkedIn:** [linkedin.com/in/mirzaishtiyaqbaig](https://www.linkedin.com/in/mirzaishtiyaqbaig/)
-- **Email:** ishtiyaqmirza7862@gmail.com
+- **Email:** mirzaishtiyaqbaig1@gmail.com
 - **GitHub:** [@mirza-ishtiyaq](https://github.com/mirza-ishtiyaq)
 
 ---

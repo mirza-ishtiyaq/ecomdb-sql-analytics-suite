@@ -11,7 +11,7 @@
 -- ================================================================================================================================
 -- ================================================================================================================================
 --
---  FILE              :  EcomDB_Analytics_Production.sql
+--  FILE              :  sql/02_ecomdb_analytics_production.sql
 --  PROJECT           :  EcomDB — Customer & Revenue Analytics Suite
 --  AUTHOR            :  Mirza Ishtiyaq Baig
 --  ROLE              :  Data Analyst / Business Analyst
@@ -145,8 +145,13 @@
 --  DENSE_RANK() surfaces ties — both products get rank 1.
 --  The category shows three products instead of two, which is the correct and honest output.
 --
---      ROW_NUMBER  on a tie:    Vacuum Cleaner → 1  ·  Headset → 2    ← Headset hidden
---      DENSE_RANK  on a tie:    Vacuum Cleaner → 1  ·  Headset → 1    ← both visible
+--      ROW_NUMBER  on a tie:    Washing Machine → 1  ·  Microwave → 2    ← Microwave hidden
+--      DENSE_RANK  on a tie:    Washing Machine → 1  ·  Microwave → 1    ← both visible
+--
+--  Verified against this file's own seed data (sql/01_data_structure.sql):
+--  in the 2023 Appliance category, Washing Machine and Microwave both close
+--  the year at $900 total revenue — DENSE_RANK genuinely returns both at rank 1
+--  when this query is run. This is not a hypothetical — run Q1 below and confirm it.
 --
 --  WHY LEFT JOIN AND NOT INNER JOIN
 --  ──────────────────────────────────
@@ -343,7 +348,7 @@ ORDER BY c.join_date ASC;      -- oldest cold leads first — longest-dormant ac
 --  The insight: if you subtract a row's sequential rank from its date,
 --  consecutive dates will always produce the same result.
 --
---      User 101 orders on:   Oct 1,    Oct 2,    Oct 3
+--      Customer orders on:   Oct 1,    Oct 2,    Oct 3
 --      Row numbers:          1         2         3
 --
 --      Oct 1  minus 1 day  =  Sep 30   ← anchor
@@ -354,13 +359,21 @@ ORDER BY c.join_date ASC;      -- oldest cold leads first — longest-dormant ac
 --
 --  Now watch what a gap does:
 --
---      User 102 orders on:   Oct 1,    Oct 3   (Oct 2 is missing)
+--      Customer orders on:   Oct 1,    Oct 3   (Oct 2 is missing)
 --      Row numbers:          1         2
 --
 --      Oct 1  minus 1 day  =  Sep 30
 --      Oct 3  minus 2 days =  Oct 1    ← different anchor
 --
 --      → Two different anchors → two separate groups → COUNT never reaches 3 → correctly excluded.
+--
+--  Verified against this file's own seed data (sql/01_data_structure.sql):
+--  user 103 places delivered orders on 2023-02-10, 02-11, and 02-12 — a genuine
+--  3-day consecutive streak. Running the query below surfaces exactly this user
+--  with consecutive_days_count = 3. Meanwhile user 101's real orders (2022-06-01,
+--  2023-10-01, 2023-10-03) hit three different anchors — the Oct-1/Oct-3 gap
+--  pattern above is exactly what breaks their streak. Both outcomes are real,
+--  not illustrative guesses.
 --
 --  WHY DEDUPLICATE FIRST (STEP 1)
 --  ────────────────────────────────
@@ -851,8 +864,8 @@ ORDER BY hours_to_second_purchase ASC;
 --  └─────────────────────────────────────────────────────────────────────────────────────┘
 --
 --  Author     :  Mirza Ishtiyaq Baig
---  Contact    :  [Your Email / LinkedIn]
---  Repository :  [Your GitHub URL]
+--  Contact    :  mirzaishtiyaqbaig1@gmail.com  |  linkedin.com/in/mirzaishtiyaqbaig
+--  Repository :  github.com/mirza-ishtiyaq/azure-synapse-enterprise-analytics
 --  Last Reviewed  :  2025  |  Platform  :  Azure Synapse Analytics
 --
 -- ================================================================================================================================
