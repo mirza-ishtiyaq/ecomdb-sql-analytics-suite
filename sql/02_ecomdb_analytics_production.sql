@@ -264,7 +264,9 @@ ORDER BY
 --  Option B  →  NOT EXISTS  (used here)
 --               For each customer row, it scans orders until it finds ONE match.
 --               The moment a match is found, it stops and moves on.
---               This short-circuit behaviour is meaningfully faster at scale.
+--               That short-circuit is the standard reason NOT EXISTS is recommended
+--               over LEFT JOIN + IS NULL at real scale -- not benchmarked in this
+--               repo, since the seed data here is a handful of rows, not millions.
 --
 --  SELECT 1 inside the subquery is deliberate.
 --  We do not need order data — just existence confirmation.
@@ -404,10 +406,14 @@ WITH step1_deduplicated AS (
     -- One row per user per calendar day.
     -- A user placing 3 orders on Oct 1 should count as ONE purchase day — not three.
     -- Without this deduplication, the anchor math in Step 3 breaks completely.
+    -- order_status = 'Delivered' applied here per the shared business rule above —
+    -- a streak of Pending/Cancelled attempts isn't a confirmed engagement or fraud
+    -- signal on its own, it's unconfirmed order activity.
     SELECT DISTINCT
         user_id,
         CAST(order_timestamp AS DATE)   AS purchase_date
     FROM EcomDB.dbo.orders
+    WHERE order_status = 'Delivered'
 ),
 
 step2_ranked AS (

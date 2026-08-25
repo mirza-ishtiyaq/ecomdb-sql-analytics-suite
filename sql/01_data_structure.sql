@@ -54,7 +54,7 @@ CREATE TABLE orders (
     order_id INT NOT NULL, 
     user_id INT,
     product_id INT,
-    order_timestamp DATETIME2(0), -- Changed to DATETIME
+    order_timestamp DATETIME2(0), -- not DATETIME -- Synapse/Fabric Warehouse don't support the legacy type
     quantity INT,
     delivery_date DATE,
     order_status VARCHAR(20)
