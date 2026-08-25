@@ -11,10 +11,10 @@
 
 ---
 
-## What A Recruiter Or Hiring Manager Should Know First
+## What This Project Demonstrates
 
-Before opening any file, here is what this project demonstrates —
-mapped directly to what companies are hiring for in 2026:
+Before opening any file, here's the short version —
+mapped to the core skills a Data Analyst / Business Analyst role actually uses day to day:
 
 | Skill Area | What This Project Shows |
 |---|---|
@@ -199,7 +199,7 @@ Easy to debug when something breaks in production.
 *Approach B — LEAD Window Function:* More concise. `LEAD()` pulls the next row's datetime
 onto the current row — eliminating the pivot step entirely.
 `AND next_order_datetime IS NOT NULL` does the same protective job as `HAVING COUNT(*) = 2`.
-Same result. Fewer CTEs. Higher interview impact.
+Same result, fewer moving parts.
 
 **The `DATEDIFF` midnight boundary quirk — documented inline:**
 `DATEDIFF(DAY)` counts midnight boundaries crossed, not true 24-hour periods.
@@ -256,13 +256,7 @@ then `sql/02_ecomdb_analytics_production.sql` for the analytical queries.
 
 ---
 
-## Connect
-
-- **LinkedIn:** [linkedin.com/in/mirzaishtiyaqbaig](https://www.linkedin.com/in/mirzaishtiyaqbaig/)
-- **Email:** mirzaishtiyaqbaig1@gmail.com
-- **GitHub:** [@mirza-ishtiyaq](https://github.com/mirza-ishtiyaq)
-
----
-
-*Production-style SQL analytics built on real internship patterns.*
-*Stack: Azure Synapse · Microsoft Fabric · Databricks · Snowflake · GCP · T-SQL*
+**Author:** Mirza Ishtiyaq Baig — Data Analyst / Business Analyst
+**LinkedIn:** [linkedin.com/in/mirzaishtiyaqbaig](https://www.linkedin.com/in/mirzaishtiyaqbaig/)
+**Email:** mirzaishtiyaqbaig1@gmail.com
+**GitHub:** [github.com/mirza-ishtiyaq](https://github.com/mirza-ishtiyaq)
