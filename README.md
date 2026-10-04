@@ -32,7 +32,7 @@ mapped to the core skills a Data Analyst / Business Analyst role actually uses d
 
 ## Background — Where These Patterns Come From
 
-During my internship at **Full Stack Academy**, I worked daily across
+During my analytical and enterprise BI development work, I worked daily across
 **Databricks**, **Microsoft Fabric**, **Snowflake**, and **Google Cloud Platform**.
 
 The queries in this repository are adapted from the analytical patterns
